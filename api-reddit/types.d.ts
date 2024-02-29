@@ -1,4 +1,4 @@
-import { Request} from 'express';
+import { Request } from 'express';
 
 export interface UserFields {
   _id: Object;
@@ -15,9 +15,20 @@ export interface Post {
   image: string | null;
 }
 
+export interface PostWithComments extends Post {
+  commentsCount: number;
+  comments: [];
+}
+
+export interface CommentType {
+  user: UserFields;
+  post: Post;
+  text: string;
+}
+
 export type UserFieldsWithoutId = Omit<UserFields, '_id'>
 export type PostWithoutId = Omit<Post, '_id'>
 
 export interface RequestWithUser extends Request {
-  user?: UserFields
+  user?: UserFields;
 }

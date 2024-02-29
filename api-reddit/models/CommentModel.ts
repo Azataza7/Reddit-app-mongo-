@@ -1,17 +1,8 @@
 import mongoose, { Schema, Types } from 'mongoose';
 import User from './UserModel';
+import Post from './PostModel';
 
-const PostModelSchema = new Schema({
-  title: {
-    type: String,
-    required: true,
-  },
-  description: {
-    type: String
-  },
-  image: {
-    type: String
-  },
+const CommentModelSchema = new Schema({
   user: {
     type: Schema.Types.ObjectId,
     ref: 'User',
@@ -21,16 +12,24 @@ const PostModelSchema = new Schema({
       message: 'User not found!'
     }
   },
-  comments: [{
+  post: {
     type: Schema.Types.ObjectId,
-    ref: 'Comment'
-  }],
+    ref: 'Post',
+    required: true,
+    validate: {
+      validator: async (value: Types.ObjectId) => await Post.findById(value)
+    }
+  },
+  text: {
+    type: String,
+    required: true
+  },
   datetime: {
     type: Date,
     default: new Date()
   }
 });
 
-const Post = mongoose.model('Post', PostModelSchema);
+const Comment = mongoose.model('Comment', CommentModelSchema);
 
-export default Post;
+export default Comment;
