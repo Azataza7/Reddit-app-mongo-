@@ -46,8 +46,9 @@ const PostItem: React.FC<Props> = ({post}) => {
         </Grid>
 
         <Grid component="div" sx={{maxWidth: '100%'}}>
-          <img src={apiURL + '/' + post.image} alt={post.user.username + 'image'}
-               style={{maxWidth: '100%', height: 'auto', borderRadius: '10px'}}/>
+          {post.image && (
+            <img src={apiURL + '/' + post.image} alt={post.user.username + 'image'}
+                 style={{maxWidth: '100%', height: 'auto', borderRadius: '10px'}}/>)}
         </Grid>
       </Grid>
       <Button component={NavLink} to={`/post/${post._id}`}

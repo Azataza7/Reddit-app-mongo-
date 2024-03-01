@@ -17,7 +17,7 @@ postRouter.get('/', async (req: Request, res: Response, next: NextFunction) => {
       post.commentsCount = comments.length;
     }
 
-    return res.send(posts);
+    return res.send(posts.reverse());
   } catch (e) {
     next(e);
   }

@@ -90,13 +90,19 @@ const PostDetails = () => {
         </Grid>
 
         <Grid component="div" sx={{mt: 1, mb: 1}}>
-          <Typography variant="p" sx={{fontWeight: 600, fontSize: '20px'}}>{postDetails.title}</Typography>
-          <Typography sx={{fontWeight: 400, color: '#615e5e'}}>{postDetails.description}</Typography>
+          <Typography variant="p" sx={{fontWeight: 600, fontSize: '20px'}}>
+            {postDetails.title}
+          </Typography>
+          <Typography sx={{fontWeight: 400, color: '#615e5e'}}>
+            {postDetails.description}
+          </Typography>
         </Grid>
 
         <Grid component="div" sx={{maxWidth: '100%'}}>
-          <img src={apiURL + '/' + postDetails.image} alt={postDetails.user.username + 'image'}
-               style={{maxWidth: '100%', height: 'auto', borderRadius: '10px'}}/>
+          {postDetails.image && (
+            <img src={apiURL + '/' + postDetails.image} alt={postDetails.user.username + 'image'}
+                 style={{maxWidth: '100%', height: 'auto', borderRadius: '10px'}}/>
+          )}
         </Grid>
       </Grid>
       <div ref={commentsContainerRef}>

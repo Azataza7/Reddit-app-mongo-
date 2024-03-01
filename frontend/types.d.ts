@@ -1,6 +1,7 @@
 export interface User {
   _id: string;
   username: string;
+  token: string;
 }
 
 export interface Posts {
@@ -28,4 +29,42 @@ export interface CommentType {
   user: User;
   text: string;
   datetime: string
+}
+
+export interface LoginMutation {
+  username: string;
+  password: string;
+}
+
+export interface RegisterMutation {
+  username: string;
+  password: string;
+}
+
+export interface RegisterResponse {
+  message: string;
+  user: User;
+}
+
+export interface GlobalError {
+  error: string;
+}
+
+export interface ValidationError {
+  errors: {
+    [key: string]: {
+      name: string;
+      message: string;
+    }
+  },
+  message: string;
+  name: string;
+  _message: string;
+}
+
+export interface userPost {
+  title: string;
+  description: string | null;
+  image: File | null;
+  token: string
 }

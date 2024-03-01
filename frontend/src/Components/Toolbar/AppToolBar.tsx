@@ -1,8 +1,16 @@
 import React from 'react';
 import { AppBar, Avatar, Box, Button, Grid, IconButton, Toolbar, Typography } from '@mui/material';
 import { Link, NavLink } from 'react-router-dom';
+import { useAppSelector } from '../../app/hooks';
+import { selectUser } from '../../Features/Users/usersSlice';
+import UserMenu from './UserMenu';
+import AnonymousMenu from './AnonymousMenu';
 
 const AppToolBar = () => {
+  const user = useAppSelector(selectUser);
+
+  console.log(user)
+
   return (
     <Box sx={{flexGrow: 1, color: '#242424'}}>
       <AppBar position="static" color="transparent" sx={{ boxShadow: 'none', borderBottom: '1px solid #E2DBDBFF'}}>
@@ -20,29 +28,8 @@ const AppToolBar = () => {
               }}
             />
           </Link>
-          <Grid component="div">
-            <Button
-              component={NavLink} to="/login"
-              sx={{
-                padding: 1.5, borderRadius: 10, color: '#FFF', bgcolor: '#d93a00', fontWeight: 600,
-                '&:hover': {
-                  bgcolor: '#ab3517',
-                }
-              }}>
-              Log In
-            </Button>
-            <Button
-              component={NavLink} to="/register"
-              sx={{
-                padding: 1.5, borderRadius: 10, color: '#d93a00', bgcolor: '#FFF', fontWeight: 600,
-                '&:hover': {
-                  bgcolor: '#d93a00',
-                  color: '#FFF'
-                }
-              }}>
-              Sign Up
-            </Button>
-          </Grid>
+          {user ? (<UserMenu/>) : (<AnonymousMenu/>)}
+
         </Toolbar>
       </AppBar>
     </Box>

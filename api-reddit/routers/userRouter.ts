@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 import { Router } from 'express';
 import User from '../models/UserModel';
 import { randomUUID } from 'crypto';
+import bcrypt from 'bcrypt';
 
 const userRouter = Router();
 
@@ -36,7 +37,7 @@ userRouter.post('/sessions', async (req, res, next) => {
 
     const user = await User.findOne({username: req.body.username});
 
-    if (!user || !(user.checkPassword(req.body.password))) {
+    if (!user || !(await bcrypt.compare(req.body.password, user.password))) {
       return res.status(400).send({error: 'Username or password is wrong'});
     }
 
