@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { Button, Grid, TextField, Input } from '@mui/material';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
@@ -18,6 +18,13 @@ const AddNewPost = () => {
     image: null,
     token: user.token
   });
+
+  useEffect(() => {
+    if (!user) {
+      navigate('/');
+    }
+  }, [user, navigate]);
+
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -42,10 +49,6 @@ const AddNewPost = () => {
     await dispatch(createPost(formData));
     navigate('/');
   };
-
-  if (!user || !user.token) {
-    return navigate('/');
-  }
 
   return (
     <form className="send-container" style={{ marginBottom: '70px' }} onSubmit={handleSubmit}>

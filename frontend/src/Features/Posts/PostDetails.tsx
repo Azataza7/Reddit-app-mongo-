@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { NavLink, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { getPostById } from './PostsThunks';
 import { selectLoadingPostDetail, selectPostDetail } from './PostsSlice';
@@ -8,11 +8,15 @@ import { deepOrange } from '@mui/material/colors';
 import dayjs from 'dayjs';
 import { apiURL } from '../../constants';
 import ChatBubbleOutlineRoundedIcon from '@mui/icons-material/ChatBubbleOutlineRounded';
-import { PostDetailType } from '../../../types';
+import { PostDetailType, User } from '../../../types';
+import CommentItem from '../Comment/CommentItem';
+import AddComment from '../Comment/AddComment';
+import { selectUser } from '../Users/usersSlice';
 
 const PostDetails = () => {
   const postId = useParams().id.toString();
   const dispatch = useAppDispatch();
+  const user: User = useAppSelector(selectUser);
   const postDetails: PostDetailType = useAppSelector(selectPostDetail);
   const onLoading: boolean = useAppSelector(selectLoadingPostDetail);
   const commentsContainerRef = useRef<HTMLDivElement>(null);
@@ -30,45 +34,16 @@ const PostDetails = () => {
   }
 
   const commentsContainer: JSX.Element[] = postDetails.comments.map((comment) => (
-    <Grid key={comment._id}
-          sx={{
-            mb: 3,
-            bgcolor: '#f3f2f2',
-            borderRadius: '15px',
-            padding: 2,
-            position: 'relative',
-            '&::before': {
-              content: '""',
-              position: 'absolute',
-              top: '-10px',
-              left: '10px',
-              width: 0,
-              height: 0,
-              borderTop: '10px solid transparent',
-              borderBottom: '10px solid transparent',
-              borderRight: '10px solid #f3f2f2',
-            }
-          }}
-    >
-      <Grid component="div" sx={{display: 'flex', alignItems: 'center', gap: '10px'}}>
-        <Avatar sx={{bgcolor: deepOrange[500]}}>
-          {comment.user.username[0].toUpperCase()}
-        </Avatar>
-        <Typography>{comment.user.username}</Typography>
-        <Typography>
-          {dayjs(comment.datetime).add(6, 'hour').format('YYYY.MM.DD hh.mm.ss')}
-        </Typography>
-      </Grid>
-      <Typography sx={{ml: 6.5}}>{comment.text}</Typography>
-    </Grid>
+    <CommentItem key={comment._id} comment={comment}/>
   ));
 
   return (
     <>
       <Grid component="div"
             sx={{
-              padding: 2, mb: 10, borderRadius: '20px', cursor: 'pointer', '&:hover': {bgcolor: '#f3f2f2'}
-            }}
+              padding: 2, mb: 10, borderRadius: '20px', cursor: 'pointer',
+            }
+            }
       >
         <Grid component="div" sx={{display: 'flex', alignItems: 'center', gap: '20px'}}>
           <Avatar sx={{bgcolor: deepOrange[500]}}>
@@ -105,9 +80,14 @@ const PostDetails = () => {
           )}
         </Grid>
       </Grid>
-      <div ref={commentsContainerRef}>
-        {commentsContainer}
-      </div>
+      {user && (
+        <Grid component="div" sx={{padding: 5}}>
+          <AddComment/>
+        </Grid>
+      )}
+      <Grid ref={commentsContainerRef}>
+        {commentsContainer.reverse()}
+      </Grid>
     </>
   );
 };

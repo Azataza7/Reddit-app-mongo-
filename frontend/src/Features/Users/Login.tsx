@@ -83,7 +83,7 @@ const Login = () => {
             fullWidth
             variant="contained"
             sx={{mt: 3, mb: 2}}
-            disabled={Boolean(state.password.length < 3) || onLoading}
+            disabled={Boolean(state.password.length < 3)}
           >
             Sign In
           </Button>

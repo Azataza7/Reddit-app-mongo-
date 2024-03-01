@@ -68,3 +68,9 @@ export interface userPost {
   image: File | null;
   token: string
 }
+
+export interface userComment {
+  text: string;
+  post: string;
+  token: string
+}
