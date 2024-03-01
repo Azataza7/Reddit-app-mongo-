@@ -41,7 +41,6 @@ postRouter.get('/:id', async (req: Request, res: Response, next: NextFunction) =
   }
 });
 
-
 postRouter.post('/', auth, imagesUpload.single('image'),
   async (req: RequestWithUser, res: Response, next: NextFunction) => {
     const description = req.body.description;
