@@ -57,5 +57,5 @@ export const postsReducer = PostsSlice.reducer;
 export const selectPosts = (state: RootState) => state.posts.posts;
 export const selectPostDetail = (state: RootState) => state.posts.postDetail;
 
-export const selectLoadingPostDetail = (state: RootState) => state.posts.postDetailLoading
+export const selectLoadingPostDetail = (state: RootState) => state.posts.postDetailLoading;
 export const selectLoadingPosts = (state: RootState) => state.posts.postsOnLoading;

@@ -23,8 +23,6 @@ const Posts = () => {
     <PostItem key={postItem._id} post={postItem}/>
   ));
 
-  console.log(posts);
-
   return (
     <Grid component="div" sx={{mt: 2, maxWidth: '600px', margin: '0 10px 0 auto'}}>
       {postsContainer}

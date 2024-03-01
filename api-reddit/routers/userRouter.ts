@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 import { Router } from 'express';
 import User from '../models/UserModel';
+import { randomUUID } from 'crypto';
 
 const userRouter = Router();
 
@@ -25,6 +26,25 @@ userRouter.post('/', async (req, res, next) => {
       return res.status(422).send(e);
     }
 
+    next(e);
+  }
+});
+
+userRouter.post('/sessions', async (req, res, next) => {
+  try {
+    const token = randomUUID();
+
+    const user = await User.findOne({username: req.body.username});
+
+    if (!user || !(user.checkPassword(req.body.password))) {
+      return res.status(400).send({error: 'Username or password is wrong'});
+    }
+
+    user.token = token;
+    await user.save();
+
+    return res.send({message: 'Success!', user});
+  } catch (e) {
     next(e);
   }
 });

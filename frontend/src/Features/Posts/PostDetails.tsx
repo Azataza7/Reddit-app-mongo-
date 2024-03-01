@@ -15,7 +15,6 @@ const PostDetails = () => {
   const dispatch = useAppDispatch();
   const postDetails: PostDetailType = useAppSelector(selectPostDetail);
   const onLoading: boolean = useAppSelector(selectLoadingPostDetail);
-
   const commentsContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -23,18 +22,17 @@ const PostDetails = () => {
   }, [dispatch, postId]);
 
   const scrollToComments = () => {
-    commentsContainerRef.current?.scrollIntoView({ behavior: 'smooth' });
+    commentsContainerRef.current?.scrollIntoView({behavior: 'smooth'});
   };
 
-  if (onLoading) {
+  if (onLoading || !postDetails) {
     return <CircularProgress sx={{position: 'absolute', top: '50%', left: '50%'}} size={60} color="warning"/>;
   }
 
-  console.log(postDetails);
-
   const commentsContainer: JSX.Element[] = postDetails.comments.map((comment) => (
     <Grid key={comment._id}
-          sx={{mb: 3,
+          sx={{
+            mb: 3,
             bgcolor: '#f3f2f2',
             borderRadius: '15px',
             padding: 2,
@@ -49,9 +47,10 @@ const PostDetails = () => {
               borderTop: '10px solid transparent',
               borderBottom: '10px solid transparent',
               borderRight: '10px solid #f3f2f2',
-            }}}
+            }
+          }}
     >
-      <Grid component="div" sx={{display: "flex", alignItems: "center", gap: '10px'}}>
+      <Grid component="div" sx={{display: 'flex', alignItems: 'center', gap: '10px'}}>
         <Avatar sx={{bgcolor: deepOrange[500]}}>
           {comment.user.username[0].toUpperCase()}
         </Avatar>
@@ -83,7 +82,8 @@ const PostDetails = () => {
           <Typography sx={{fontSize: '12px'}}>
             {dayjs(postDetails.datetime).add(6, 'hour').format('YYYY.MM.DD hh.mm.ss')}
           </Typography>
-          <Button component="div" sx={{color: '#000', bgcolor: '#EEE', borderRadius: '20px'}} onClick={scrollToComments}>
+          <Button component="div" sx={{color: '#000', bgcolor: '#EEE', borderRadius: '20px'}}
+                  onClick={scrollToComments}>
             <ChatBubbleOutlineRoundedIcon sx={{mr: 1}}/>
             {postDetails.comments.length}
           </Button>
