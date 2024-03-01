@@ -8,9 +8,7 @@ import AnonymousMenu from './AnonymousMenu';
 
 const AppToolBar = () => {
   const user = useAppSelector(selectUser);
-
-  console.log(user)
-
+  
   return (
     <Box sx={{flexGrow: 1, color: '#242424'}}>
       <AppBar position="static" color="transparent" sx={{ boxShadow: 'none', borderBottom: '1px solid #E2DBDBFF'}}>

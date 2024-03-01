@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { Button, Grid, TextField, Input } from '@mui/material';
+import { Button, Grid, TextField, Input, CircularProgress } from '@mui/material';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
 import SendIcon from '@mui/icons-material/Send';
 import { useNavigate } from 'react-router-dom';
@@ -28,7 +28,7 @@ const AddNewPost = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
+    const {name, value} = e.target;
     setFormData({
       ...formData,
       [name]: value,
@@ -51,9 +51,9 @@ const AddNewPost = () => {
   };
 
   return (
-    <form className="send-container" style={{ marginBottom: '70px' }} onSubmit={handleSubmit}>
+    <form className="send-container" style={{marginBottom: '70px'}} onSubmit={handleSubmit}>
       <input
-        style={{ display: 'none' }}
+        style={{display: 'none'}}
         type="file"
         name="image"
         ref={fileInputRef}
@@ -84,26 +84,26 @@ const AddNewPost = () => {
           />
         </Grid>
         <Grid item
-              sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}
+              sx={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}
         >
-          <Grid sx={{ display: 'flex', alignItems: 'center' }}>
+          <Grid sx={{display: 'flex', alignItems: 'center'}}>
             <Button
               onClick={() => fileInputRef.current?.click()}
               cursor="pointer"
               color="primary"
             >
-              <AttachFileIcon fontSize="large" />
+              <AttachFileIcon fontSize="large"/>
             </Button>
             {formData.image && formData.image.name && (
               <Input
                 disabled
-                style={{ display: 'block' }}
+                style={{display: 'block'}}
                 value={formData.image.name}
               />
             )}
           </Grid>
           <Button disabled={!formData.image && !formData.description}
-                  type="submit" variant="contained" startIcon={<SendIcon />}>
+                  type="submit" variant="contained" startIcon={<SendIcon/>}>
             Send
           </Button>
         </Grid>

@@ -4,7 +4,7 @@ import { selectUser } from '../Users/usersSlice';
 import { useNavigate, useParams } from 'react-router-dom';
 import { User, userComment } from '../../../types';
 import { addComment } from './CommentThunks';
-import { Button, Grid, TextField } from '@mui/material';
+import { Button, CircularProgress, Grid, TextField } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 import { getPostById } from '../Posts/PostsThunks';
 import { selectCommentLoading } from './CommentSlice';
@@ -23,6 +23,10 @@ const AddComment = () => {
       navigate('/');
     }
   }, [user, navigate]);
+
+  if (onLoading) {
+    return <CircularProgress sx={{position: 'absolute', top: '50%', left: '50%'}} size={60} color="warning"/>;
+  }
 
   const handleSendComment = async () => {
     const newComment: userComment = {

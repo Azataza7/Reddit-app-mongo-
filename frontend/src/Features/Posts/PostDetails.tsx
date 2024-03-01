@@ -42,9 +42,7 @@ const PostDetails = () => {
       <Grid component="div"
             sx={{
               padding: 2, mb: 10, borderRadius: '20px', cursor: 'pointer',
-            }
-            }
-      >
+            }}>
         <Grid component="div" sx={{display: 'flex', alignItems: 'center', gap: '20px'}}>
           <Avatar sx={{bgcolor: deepOrange[500]}}>
             {postDetails.user.username[0].toUpperCase()}

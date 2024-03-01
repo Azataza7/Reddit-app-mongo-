@@ -21,7 +21,7 @@ export const getPostById = createAsyncThunk<PostDetailType, string>(
   }
 );
 
-export const createPost = createAsyncThunk<void, userPost, { rejectValue: ValidationError }>(
+export const createPost = createAsyncThunk<PostDetailType, userPost, { rejectValue: ValidationError }>(
   'posts/new',
   async (data, {rejectWithValue}) => {
     try {

@@ -17,6 +17,7 @@ const initialState: postsState = {
 
   postsOnLoading: false,
   postDetailLoading: false,
+
 };
 
 const PostsSlice = createSlice({
