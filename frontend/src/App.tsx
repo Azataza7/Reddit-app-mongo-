@@ -1,33 +1,28 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { Routes, Route } from 'react-router-dom';
+import { Avatar, Container } from '@mui/material';
+import AppToolBar from './Components/Toolbar/AppToolBar';
+import Posts from './Features/Posts/Posts';
+import PostDetails from './Features/Posts/PostDetails';
 
-function App() {
-  const [count, setCount] = useState(0)
 
+const App = () => {
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <main>
+        <header>
+          <AppToolBar/>
+        </header>
+        <Container maxWidth="fixed">
+          <Routes>
+            <Route path="/" element={(<Posts/>)}/>
+            <Route path="/post/:id" element={(<PostDetails/>)}/>
+            <Route path="*" element={(
+              <Avatar src="https://www.searchenginejournal.com/wp-content/uploads/2009/05/reddit404top.png"
+                      sx={{ width: 450,height: 284 , position: 'absolute', top: '40%', left: '33%'}}/>
+            )}/>
+          </Routes>
+        </Container>
+      </main>
     </>
   )
 }

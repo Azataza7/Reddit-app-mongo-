@@ -1,16 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { artistReducer } from '../features/artist/ArtistSlice';
-import { albumReducer } from '../features/album/AlbumSlice';
-import { trackReducer } from '../features/tracks/TrackSlice';
-import { userReducer } from '../features/users/usersSlice';
-
+import { postsReducer } from '../Features/Posts/PostsSlice';
 
 export const store = configureStore({
   reducer: {
-    artist: artistReducer,
-    album: albumReducer,
-    track: trackReducer,
-    users: userReducer,
+    posts: postsReducer,
+
   }
 });
 
